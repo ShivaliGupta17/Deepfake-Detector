@@ -23,6 +23,21 @@ IMG_SIZE = (224, 224)
 model = load_model(MODEL_PATH)
 
 app = FastAPI(title="Deepfake Detector")
+from fastapi.responses import HTMLResponse
+
+@app.get("/", response_class=HTMLResponse)
+async def home():
+    return """
+    <html>
+        <head>
+            <title>Deepfake Detector</title>
+        </head>
+        <body style="font-family: Arial; text-align:center; padding-top:50px;">
+            <h1>🧠 Deepfake Detector is Live 🚀</h1>
+            <p>Your FastAPI app is successfully deployed on Render.</p>
+        </body>
+    </html>
+    """
 
 
 def predict_array(img: Image.Image) -> float:
