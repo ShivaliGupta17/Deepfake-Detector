@@ -105,7 +105,7 @@ Deepfake-Detector/
 │
 ├── finaldeepfakemodel.ipynb
 ├── deepfake_finetuned.keras
-├── app.py
+├── main.py
 ├── requirements.txt
 ├── README.md
 ├── static/
