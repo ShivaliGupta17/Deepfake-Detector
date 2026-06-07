@@ -8,14 +8,14 @@ The project uses **Transfer Learning** and Computer Vision techniques to classif
 
 # 🚀 Features
 
-✅ Detects Real vs Deepfake Images
-✅ Built using EfficientNetB0 Transfer Learning
-✅ Modern FastAPI-based Web Interface
-✅ Confidence Score Prediction
-✅ Image Upload & Instant Analysis
-✅ Fine-tuned Deep Learning Model
-✅ Training Visualization Graphs
-✅ High Validation Accuracy (~95%)
+## 1. Detects Real vs Deepfake Images
+## 2. Built using EfficientNetB0 Transfer Learning
+## 3. Modern FastAPI-based Web Interface
+## 4.Confidence Score Prediction
+## 5. Image Upload & Instant Analysis
+## 6. Fine-tuned Deep Learning Model
+## 7. Training Visualization Graphs
+## 8. High Validation Accuracy (~95%)
 
 ---
 
