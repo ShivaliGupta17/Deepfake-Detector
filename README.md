@@ -98,6 +98,29 @@ The model successfully identifies manipulated and AI-generated images with stron
 
 ---
 
+# 📂 Dataset
+
+This project uses a hybrid dataset consisting of:
+
+* Real human face images
+* AI-generated fake images
+* Gemini-generated realistic faces
+* Hugging Face synthetic facial images
+* Additional AI-generated samples used for fine-tuning
+
+The model was initially trained using publicly available deepfake datasets and later fine-tuned on a custom curated dataset created for improving real-world deepfake detection performance.
+
+## Dataset Sources
+
+* Kaggle: 140K Real and Fake Faces Dataset
+  https://www.kaggle.com/datasets/xhlulu/140k-real-and-fake-faces
+
+* Hugging Face AI-generated facial datasets,Custom AI-generated images created using Gemini and other generative AI tools
+  https://www.kaggle.com/datasets/shivaligupta17/finetunedataset
+
+Due to storage limitations, the dataset is not included in this repository.
+
+
 # 📂 Project Structure
 
 ```text id="ijowxu"
@@ -140,7 +163,7 @@ pip install -r requirements.txt
 ## 3️⃣ Run the Application
 
 ```bash id="b6g2n5"
-uvicorn app:app --reload
+uvicorn main:app --reload
 ```
 
 Open in browser:
