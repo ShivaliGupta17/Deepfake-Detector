@@ -90,7 +90,7 @@ async def index():
 
 # Serve static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
-```
+
 
 # Serve static files
 
