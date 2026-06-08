@@ -1,5 +1,4 @@
 
-```python
 """
 Deepfake Detector — FastAPI backend.
 
@@ -112,4 +111,4 @@ async def index():
 
 # Serve static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
-```
+
