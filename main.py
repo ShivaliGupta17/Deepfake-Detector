@@ -1,4 +1,5 @@
 
+```python
 """
 Deepfake Detector — FastAPI backend.
 
@@ -49,24 +50,43 @@ def predict_array(img):
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
 
+    print("STEP 1: Request received")
+
     if not file.content_type or not file.content_type.startswith("image/"):
         raise HTTPException(
             status_code=400,
             detail="Please upload an image file."
         )
 
+    print("STEP 2: Valid image")
+
     data = await file.read()
 
     try:
         img = Image.open(io.BytesIO(data))
+        print("STEP 3: Image opened")
 
-    except Exception:
+    except Exception as e:
+
+        print("IMAGE ERROR:", e)
+
         raise HTTPException(
             status_code=400,
             detail="Could not read the image."
         )
 
-    raw = predict_array(img)
+    try:
+        raw = predict_array(img)
+        print("STEP 4: Prediction done", raw)
+
+    except Exception as e:
+
+        print("PREDICTION ERROR:", e)
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
 
     if raw > 0.5:
         label = "REAL"
@@ -75,6 +95,8 @@ async def predict(file: UploadFile = File(...)):
     else:
         label = "FAKE"
         confidence = (1.0 - raw) * 100.0
+
+    print("STEP 5: Returning response")
 
     return JSONResponse({
         "label": label,
@@ -90,8 +112,4 @@ async def index():
 
 # Serve static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
-
-# Serve static files
-
-app.mount("/static", StaticFiles(directory="static"), name="static")
+```
