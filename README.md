@@ -1,152 +1,316 @@
-# 🧠 Deepfake Detector AI
+# 🧠 Contemporary Generative AI F ace Authenticity & Detection
 
-An advanced AI-powered **Deepfake Detection System** built using **TensorFlow, Keras, EfficientNetB0, and FastAPI** that identifies whether an image is **Authentic** or **AI-generated / Manipulated**.
+> **An AI-powered synthetic-face detection system designed to distinguish authentic human facial imagery from contemporary AI-generated and manipulated faces.**
 
-The project uses **Transfer Learning** and Computer Vision techniques to classify facial images with high validation accuracy.
+This project explores **AI-generated face detection in the era of modern Generative AI**. Instead of relying exclusively on traditional deepfake datasets, the model is trained using a **hybrid dataset combining real facial images with synthetic faces generated from multiple AI sources**.
 
----
-
-# 🚀 Features
-
-## 1. Detects Real vs Deepfake Images
-## 2. Built using EfficientNetB0 Transfer Learning
-## 3. Modern FastAPI-based Web Interface
-## 4.Confidence Score Prediction
-## 5. Image Upload & Instant Analysis
-## 6. Fine-tuned Deep Learning Model
-## 7. Training Visualization Graphs
-## 8. High Validation Accuracy (~95%)
+The detection pipeline uses **EfficientNetB0 transfer learning followed by targeted fine-tuning**, and is deployed as an end-to-end **FastAPI web application** that provides a Real/Fake prediction with a confidence score.
 
 ---
 
-# 🖼️ Application Preview
+## 🎯 Project Overview
 
-## ✅ Authentic Image Detection
+Generative AI systems can now create highly realistic human faces that are difficult to distinguish from authentic photographs.
 
-<img width="100%" src="https://raw.githubusercontent.com/ShivaliGupta17/Deepfake-Detector/main/assets/real_prediction.png">
+Traditional deepfake detection systems are often trained on fixed benchmark datasets, which may not fully represent newer forms of AI-generated imagery.
 
----
+This project investigates a practical approach to this problem by incorporating **contemporary synthetic facial imagery into the training and fine-tuning process**.
 
-## 🚨 Deepfake Detection
+### Core idea
 
-<img width="100%" src="https://raw.githubusercontent.com/ShivaliGupta17/Deepfake-Detector/main/assets/fake_prediction.png">
-
----
-
-# 🧠 Model Information
-
-| Component         | Details                     |
-| ----------------- | --------------------------- |
-| Base Model        | EfficientNetB0              |
-| Framework         | TensorFlow / Keras          |
-| Backend           | FastAPI                     |
-| Task              | Binary Image Classification |
-| Classes           | Real / Fake                 |
-| Input Size        | 224 × 224                   |
-| Transfer Learning | Yes                         |
-| Fine Tuning       | Yes                         |
-
----
-
-# 📊 Training Performance
-
-The model was trained in two phases:
-
-### Phase 1 — Head Training
-
-* Base model frozen
-* Custom classification layers trained
-
-### Phase 2 — Fine Tuning
-
-* Selected EfficientNet layers unfrozen
-* Fine-tuned for better generalization
+```text
+Traditional Real/Fake Data
+          +
+Contemporary AI-Generated Faces
+          +
+Custom Synthetic Samples
+          ↓
+     Hybrid Dataset
+          ↓
+   EfficientNetB0
+          ↓
+ Transfer Learning
+          ↓
+    Fine-Tuning
+          ↓
+Synthetic Face Detector
+          ↓
+     FastAPI App
+          ↓
+   Real / AI-Generated
+   + Confidence Score
+```
 
 ---
 
-## 📈 Accuracy & Loss Curves
+# 🔬 Research Motivation
 
-<img width="100%" src="https://raw.githubusercontent.com/ShivaliGupta17/Deepfake-Detector/main/assets/training_graphs.png">
+The rapid development of Generative AI has made synthetic human faces increasingly realistic.
 
----
+A detector trained only on previously seen deepfake examples may struggle when exposed to images generated using newer or different synthesis techniques.
 
-# 📌 Results
+Therefore, this project focuses on the following idea:
 
-| Metric                | Value          |
-| --------------------- | -------------- |
-| Validation Accuracy   | ~95%           |
-| Validation Loss       | ~0.15          |
-| Prediction Confidence | High           |
-| Model Type            | Fine-tuned CNN |
+> **Can exposure to diverse, contemporary AI-generated facial imagery during training and fine-tuning improve a detector's ability to identify synthetic faces?**
 
-The model successfully identifies manipulated and AI-generated images with strong confidence scores.
+The project uses synthetic facial images from multiple sources to expose the model to a broader range of AI-generated visual patterns.
 
 ---
 
-# 🛠️ Technologies Used
+# ⭐ Key Contributions
 
-* Python
-* TensorFlow
-* Keras
-* EfficientNetB0
-* NumPy
-* Pandas
-* Matplotlib
-* OpenCV
-* FastAPI
-* HTML/CSS UI
+* Curated a **hybrid facial-image dataset** containing real and synthetic imagery.
+* Incorporated **contemporary AI-generated facial samples** into the training/fine-tuning pipeline.
+* Used **EfficientNetB0 transfer learning** for efficient feature extraction.
+* Implemented a **two-stage training strategy** consisting of head training and fine-tuning.
+* Fine-tuned selected EfficientNet layers to adapt the model toward synthetic-face detection.
+* Built an end-to-end **FastAPI inference pipeline**.
+* Developed a custom web interface for image upload and prediction.
+* Added **confidence-based prediction results**.
+* Deployed the application to the cloud using **Render**.
+
+---
+
+# 🧠 Model Architecture
+
+The system uses **EfficientNetB0** as the backbone model.
+
+```text
+                 Input Image
+                     │
+                     ▼
+              Image Preprocessing
+                  224 × 224
+                     │
+                     ▼
+              EfficientNetB0
+             Feature Extraction
+                     │
+                     ▼
+             Classification Head
+                     │
+                     ▼
+              Binary Prediction
+              ┌──────┴──────┐
+              ▼             ▼
+            REAL      AI-GENERATED
+              │             │
+              └──────┬──────┘
+                     ▼
+             Confidence Score
+```
+
+### Model Configuration
+
+| Component         | Details                         |
+| ----------------- | ------------------------------- |
+| Backbone          | EfficientNetB0                  |
+| Framework         | TensorFlow / Keras              |
+| Task              | Binary Image Classification     |
+| Classes           | Real / AI-Generated             |
+| Input Size        | 224 × 224                       |
+| Learning Strategy | Transfer Learning + Fine-Tuning |
+| Loss              | Binary Cross-Entropy            |
+| Optimizer         | Adam                            |
+| Deployment API    | FastAPI                         |
+
+---
+
+# 🔄 Training Strategy
+
+The model was trained using a **two-stage transfer learning strategy**.
+
+## Phase 1 — Transfer Learning
+
+The pretrained EfficientNetB0 backbone was initially frozen.
+
+Only the custom classification layers were trained for the Real vs AI-Generated classification task.
+
+```text
+Pretrained EfficientNetB0
+          ↓
+      Frozen Base
+          ↓
+   Custom Classifier
+          ↓
+       Training
+```
+
+## Phase 2 — Fine-Tuning
+
+After the classification head was trained, selected layers of EfficientNetB0 were unfrozen.
+
+The model was then fine-tuned with a smaller learning rate to adapt learned visual representations toward synthetic-face detection.
+
+```text
+Trained Model
+      ↓
+Unfreeze Selected Layers
+      ↓
+Fine-Tuning
+      ↓
+Better Adaptation to
+Synthetic Facial Patterns
+```
 
 ---
 
 # 📂 Dataset
 
-This project uses a hybrid dataset consisting of:
+The project uses a **hybrid dataset** consisting of authentic and synthetic facial imagery.
 
-* Real human face images
-* AI-generated fake images
-* Gemini-generated realistic faces
-* Hugging Face synthetic facial images
-* Additional AI-generated samples used for fine-tuning
+### Real Images
 
-The model was initially trained using publicly available deepfake datasets and later fine-tuned on a custom curated dataset created for improving real-world deepfake detection performance.
+* Real human facial images
+* Publicly available real/fake face datasets
 
-## Dataset Sources
+### AI-Generated / Synthetic Images
 
-* Kaggle: 140K Real and Fake Faces Dataset
-  https://www.kaggle.com/datasets/xhlulu/140k-real-and-fake-faces
+* AI-generated realistic faces
+* Gemini-generated facial imagery
+* Synthetic facial datasets from Hugging Face
+* Additional custom AI-generated samples
+* Synthetic samples used specifically for fine-tuning
 
-* Hugging Face AI-generated facial datasets,Custom AI-generated images created using Gemini and other generative AI tools
-  https://www.kaggle.com/datasets/shivaligupta17/finetunedataset
+The goal of incorporating multiple synthetic sources is to expose the model to **diverse patterns produced by contemporary generative AI systems** rather than training exclusively on one fixed source of fake images.
 
-Due to storage limitations, the dataset is not included in this repository.
+---
 
+## 📚 Dataset Sources
 
-# 📂 Project Structure
+### 1. 140K Real and Fake Faces Dataset
 
-```text id="ijowxu"
+Kaggle dataset containing real and generated facial images.
+
+[View Dataset](https://www.kaggle.com/datasets/xhlulu/140k-real-and-fake-faces)
+
+### 2. Fine-Tuning Dataset
+
+Custom dataset containing additional AI-generated facial samples used for model adaptation and fine-tuning.
+
+[View Dataset](https://www.kaggle.com/datasets/shivaligupta17/finetunedataset)
+
+> **Note:** Due to storage limitations, datasets are not included directly in this repository.
+
+---
+
+# 🔍 Inference Workflow
+
+The deployed application follows the following pipeline:
+
+```text
+1. Upload Facial Image
+        ↓
+2. Image Preprocessing
+        ↓
+3. Resize to 224 × 224
+        ↓
+4. EfficientNet Preprocessing
+        ↓
+5. Model Inference
+        ↓
+6. Real / AI-Generated Classification
+        ↓
+7. Confidence Score
+        ↓
+8. Result Display
+```
+
+---
+
+# 📊 Training Performance
+
+The model achieved approximately **95% validation accuracy** on the evaluation data used during development.
+
+| Metric              |                    Result |
+| ------------------- | ------------------------: |
+| Validation Accuracy |                      ~95% |
+| Validation Loss     |                     ~0.15 |
+| Model               | Fine-tuned EfficientNetB0 |
+| Task                |     Binary Classification |
+
+### 📈 Accuracy & Loss Curves
+
+Training and validation curves are available in the project notebook.
+
+> **Important:** Validation performance is dataset-dependent and should not be interpreted as guaranteed accuracy on every unseen AI-generation system.
+
+---
+
+# 🖼️ Application Demo
+
+## 🏠 Application Interface
+
+The application provides a simple interface where users can upload a facial image for analysis.
+
+---
+
+## ✅ Authentic Face Detection
+
+The system analyzes an authentic human facial image and returns the predicted class along with its confidence score.
+
+---
+
+## 🚨 AI-Generated Face Detection
+
+The system can identify synthetic facial imagery generated by AI systems.
+
+---
+
+# 🚀 Live Demo
+
+The model is deployed as a web application using **Render**.
+
+🌐 **Live Application:**
+https://deepfake-detector-6d6k.onrender.com/
+
+---
+
+# 🛠️ Technology Stack
+
+| Category             | Technologies      |
+| -------------------- | ----------------- |
+| Programming Language | Python            |
+| Deep Learning        | TensorFlow, Keras |
+| CNN Backbone         | EfficientNetB0    |
+| Computer Vision      | OpenCV            |
+| Data Processing      | NumPy, Pandas     |
+| Visualization        | Matplotlib        |
+| Backend              | FastAPI           |
+| Frontend             | HTML, CSS         |
+| Model Format         | Keras `.keras`    |
+| Deployment           | Render            |
+
+---
+
+# 📁 Project Structure
+
+```text
 Deepfake-Detector/
 │
-├── finaldeepfakemodel.ipynb
-├── deepfake_finetuned.keras
-├── main.py
-├── requirements.txt
+├── finaldeepfakemodel.ipynb      # Model training & experimentation
+├── deepfake_finetuned.keras      # Fine-tuned EfficientNet model
+├── main.py                       # FastAPI application
+├── test.py                       # Model/API testing
+├── requirements.txt              # Python dependencies
 ├── README.md
-├── static/
-├── templates/
-└── assets/
+│
+├── static/                       # Frontend static files
+├── templates/                    # HTML templates
+└── assets/                       # Application screenshots/assets
 ```
 
 ---
 
 # ⚙️ Installation
 
-## 1️⃣ Clone Repository
+## 1️⃣ Clone the Repository
 
-```bash id="k6uz4j"
+```bash
 git clone https://github.com/ShivaliGupta17/Deepfake-Detector.git
 ```
 
-```bash id="02d45z"
+```bash
 cd Deepfake-Detector
 ```
 
@@ -154,7 +318,7 @@ cd Deepfake-Detector
 
 ## 2️⃣ Install Dependencies
 
-```bash id="1mgnlt"
+```bash
 pip install -r requirements.txt
 ```
 
@@ -162,53 +326,105 @@ pip install -r requirements.txt
 
 ## 3️⃣ Run the Application
 
-```bash id="b6g2n5"
+```bash
 uvicorn main:app --reload
 ```
 
-Open in browser:
+Open your browser and visit:
 
-```text id="s90zuj"
+```text
 http://127.0.0.1:8000
 ```
 
 ---
 
-# 🔍 Workflow
+# 🔮 Future Research Directions
 
-1. Upload Facial Image
-2. Image Preprocessing
-3. Feature Extraction using EfficientNetB0
-4. Deepfake Classification
-5. Confidence Score Generation
-6. Final Verdict Display
+The current system focuses on image-level synthetic-face detection. Several extensions can further improve its research and practical capabilities.
+
+### 🎥 Video Deepfake Detection
+
+Extend the image classifier to analyze temporal inconsistencies across video frames.
+
+### 🌐 Cross-Generator Generalization
+
+Evaluate the detector on synthetic faces generated by **AI systems that were not included during training**.
+
+### 🧠 Explainable AI
+
+Integrate techniques such as **Grad-CAM** to visualize which facial regions influenced the prediction.
+
+### 📊 Robustness Evaluation
+
+Test performance under:
+
+* Image compression
+* Resizing
+* Cropping
+* Blur
+* Social-media transformations
+* Post-processing
+
+### 🤖 Advanced Vision Models
+
+Compare EfficientNetB0 with:
+
+* Vision Transformers
+* CLIP-based approaches
+* Other modern vision architectures
+
+### 📱 Mobile Deployment
+
+Extend the detection system to mobile platforms for on-device synthetic-image analysis.
+
+---
+
+# ⚠️ Limitations
+
+This project is an experimental deep learning system and should not be treated as a definitive authenticity verification tool.
+
+Current limitations include:
+
+* Performance may vary on unseen AI-generation models.
+* Generator-specific visual artifacts can influence predictions.
+* The current system focuses primarily on facial images rather than full videos.
+* Validation accuracy depends on the dataset distribution.
+* Robustness against adversarial manipulation requires additional evaluation.
+
+---
+
+# 💡 Why This Project?
+
+The project goes beyond simply training a binary classifier on a conventional deepfake dataset.
+
+Its central focus is:
+
+> **Adapting deepfake detection toward the rapidly evolving landscape of contemporary Generative AI.**
+
+By combining **multi-source synthetic data**, **transfer learning**, **targeted fine-tuning**, and **real-world deployment**, the project explores a practical approach to detecting increasingly realistic AI-generated facial imagery.
 
 ---
 
 # 📚 Applications
 
-* Fake Media Detection
+Potential applications include:
+
+* AI-generated content detection
+* Fake media screening
+* Digital media verification
 * Cybersecurity
-* Digital Forensics
-* Social Media Verification
-* AI-generated Content Analysis
-* Online Identity Verification
-
----
-
-# 🔮 Future Improvements
-
-* 🎥 Real-time Video Deepfake Detection
-* 🌐 Streamlit / Cloud Deployment
-* 📱 Mobile App Integration
-* 🧠 Explainable AI (XAI)
-* 📊 Detailed Probability Analysis
+* Digital forensics
+* Social media content moderation
+* Identity verification support
+* Synthetic-media research
 
 ---
 
 # 👩‍💻 Author
 
 ## Shivali Gupta
+
+AI/ML & Data Science Enthusiast
 
 🔗 GitHub:
 https://github.com/ShivaliGupta17
@@ -217,4 +433,7 @@ https://github.com/ShivaliGupta17
 
 # ⭐ Support
 
-If you found this project useful, consider giving it a ⭐ on GitHub.
+If you found this project useful or interesting, consider giving the repository a ⭐ on GitHub.
+
+Contributions, feedback, and suggestions for improving synthetic-face detection are welcome.
+
